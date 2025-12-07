@@ -41,5 +41,9 @@ public class PlayerController : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement *(moveSpeed * Time.fixedDeltaTime));
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 }
