@@ -41,10 +41,5 @@ public class PlayerController : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement *(moveSpeed * Time.fixedDeltaTime));
     }
-    private Attack () {}
-    private Jump () {} 
-    
-    private TimelineProjectSettings () {} 
-    private telepost () {}
 
 }
