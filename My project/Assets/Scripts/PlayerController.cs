@@ -45,5 +45,6 @@ public class PlayerController : MonoBehaviour
     private Jump () {} 
     
     private TimelineProjectSettings () {} 
+    private telepost () {}
 
 }
