@@ -6,6 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f;
+
+    // Dash
+    public float dashBoost;
+    public float dashTime;
+    private float _dashTime;
+    bool isDashing = false;
+    // dash
     
     private PlayerControls playerControls;
     private Vector2 movement;
@@ -28,6 +35,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _dashTime <= 0 && isDashing == false)
+        {
+            moveSpeed += dashBoost;
+            _dashTime = dashTime;
+            isDashing = true;
+        }
+
+        if (_dashTime <= 0 && isDashing == true)
+        {
+            moveSpeed -= dashBoost;
+            isDashing = false;
+        }
+        else if (isDashing == true)
+        {
+            _dashTime -= Time.deltaTime;
+        }
+        //dash
+
         PlayerInput();
     }
 
