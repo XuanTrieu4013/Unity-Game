@@ -5,7 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-     public bool FacingLeft {get { return FacingLeft;}set {FacingLeft = value; }}
+     public bool FacingLeft
+{
+    get { return facingLeft; }
+    set { facingLeft = value; }
+}
+
 
     [SerializeField] private float moveSpeed = 1f;
 
@@ -74,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        rb.MovePosition(rb.position + movement *(moveSpeed * Time.fixedDeltaTime));
+        rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
     }
 
     private void AdjustPlayerFacingDirection()
@@ -90,7 +95,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             mySpriteRenderer.flipX = false;
-            FacingLeft = true;
+            FacingLeft = false;
         }
     }
 }
