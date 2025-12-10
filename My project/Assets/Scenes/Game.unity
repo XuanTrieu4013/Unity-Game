@@ -254,18 +254,30 @@ PrefabInstance:
     - target: {fileID: -2072623750692771700, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: c31fd92f084e7e649a45266012844199, type: 2}
+      objectReference: {fileID: 3181817014219814998, guid: 765aebdd25b85ae4ba09e145e80b40a5, type: 3}
     - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.5
+      value: 6.47
       objectReference: {fileID: 0}
     - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.86
+      value: -1.6
       objectReference: {fileID: 0}
     - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
       propertyPath: m_LocalPosition.z
@@ -299,9 +311,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201586, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201586, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8402238054732074939, guid: 765aebdd25b85ae4ba09e145e80b40a5, type: 3}
+    - target: {fileID: 5288334999286201589, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_Size.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201589, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_Size.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201589, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288334999286201589, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.58
+      objectReference: {fileID: 0}
     - target: {fileID: 5288334999286201591, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
       propertyPath: m_Name
-      value: Blue Slime (3)
+      value: DemonSlime
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
