@@ -12,9 +12,12 @@ GameObject:
   - component: {fileID: 5288334999286201586}
   - component: {fileID: 5288334999286201587}
   - component: {fileID: 7688421954916138215}
+  - component: {fileID: 5591407262380050219}
   - component: {fileID: 5288334999286201589}
   - component: {fileID: 5288334999286201590}
+  - component: {fileID: 539057617845008607}
   - component: {fileID: -2072623750692771700}
+  - component: {fileID: 2188429857968358318}
   m_Layer: 0
   m_Name: Blue Slime
   m_TagString: Untagged
@@ -115,6 +118,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+--- !u!114 &5591407262380050219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5288334999286201591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957a29225199f8e4387118cb92b7928a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackTime: 0.1
 --- !u!70 &5288334999286201589
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -152,6 +168,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &539057617845008607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5288334999286201591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957a29225199f8e4387118cb92b7928a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackTime: 0.2
 --- !u!95 &-2072623750692771700
 Animator:
   serializedVersion: 5
@@ -173,3 +202,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2188429857968358318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5288334999286201591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786968e78e5419d4f9ab5315404eec23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteFlashMat: {fileID: 2100000, guid: 48eea1947d1310a4a90e081dcf7f8cda, type: 2}
+  restoreDefaultMatTime: 0.2

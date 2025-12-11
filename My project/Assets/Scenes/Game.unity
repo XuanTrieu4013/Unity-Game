@@ -357,6 +357,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: -8009049880645490970, guid: f81d3eeafa47f4b4dbe0c980668eca8a, type: 3}
+    - target: {fileID: 539057617845008607, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
+      propertyPath: knockBackTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5288334999286201585, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1438,7 +1442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &731042571
 Transform:
   m_ObjectHideFlags: 0
