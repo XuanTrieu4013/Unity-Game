@@ -7,12 +7,13 @@ public class Sword : MonoBehaviour
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private Transform weaponCollider;
+    [SerializeField] private float swordAttackCD = .5f;
 
     private PlayerControls playerControls;
     private Animator myAnimator;
     private PlayerController playerController;
     private ActiveWeapon activeWeapon;
-
+    private bool attackButtonDown, isAttacking = false;
     private GameObject slashAnim;
 
     // callback lưu lại để hủy khi disable
@@ -35,6 +36,11 @@ public class Sword : MonoBehaviour
         playerControls.Combat.Attack.started += attackCallback;
     }
 
+    private void Start()
+    {
+        playerControls.Combat.Attack.started += _ => StartAttacking();
+        playerControls.Combat.Attack.canceled += _ => StopAttacking();
+    }
     private void OnDisable()
     {
         // hủy callback khi object disable/destroy
@@ -48,25 +54,36 @@ public class Sword : MonoBehaviour
     private void Update()
     {
         MouseFollowWithOffset();
+        Attack();
+    }
+
+    private void StartAttacking()
+    {
+        attackButtonDown = true;
+    }
+
+    private void StopAttacking()
+    {
+        attackButtonDown = false;
     }
 
     private void Attack()
     {
-        if (myAnimator != null)
+        if (attackButtonDown && !isAttacking )
         {
+            isAttacking = true;
             myAnimator.SetTrigger("Attack");
-        }
-
-        if (weaponCollider != null)
-        {
             weaponCollider.gameObject.SetActive(true);
-        }
-
-        if (slashAnimPrefab != null && slashAnimSpawnPoint != null)
-        {
             slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
             slashAnim.transform.parent = this.transform.parent;
+            StartCoroutine(AttackCDRoutine());
         }
+    }
+
+    private IEnumerator AttackCDRoutine()
+    {
+        yield return new WaitForSeconds(swordAttackCD);
+        isAttacking = false;
     }
 
     // Animation Events
