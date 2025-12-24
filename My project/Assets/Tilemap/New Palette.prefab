@@ -282,6 +282,26 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -5, y: -5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 85
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
+  - first: {x: -4, y: -5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 85
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
   - first: {x: -1, y: -5, z: 0}
     second:
       serializedVersion: 2
@@ -1094,9 +1114,11 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 30c3c531f6b2a3c48a53b8c1bdb29fd7, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 8b4fd8a5610c6f24b866f2d6d2a8c5f0, type: 2}
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: 058c70f5c036293448e557c1b7ad5742, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 2
+    m_Data: {fileID: -62023459, guid: 339bd19949aa25544bac3b7caa181c03, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -624203591, guid: 37f2cca788f4a954c8c73aa3631d1ba6, type: 3}
   - m_RefCount: 1
@@ -1262,7 +1284,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -154223384, guid: 4b8c5a1fd19aa3b4fb94b4010721a30d, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 88
+  - m_RefCount: 90
     m_Data:
       e00: 1
       e01: 0
@@ -1281,7 +1303,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 88
+  - m_RefCount: 90
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: 898149, g: 898149, b: 898149, a: 898149}
@@ -1403,7 +1425,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &9190370658190463483
+--- !u!114 &5653688963901000769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

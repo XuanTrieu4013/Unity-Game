@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3801467584986534330}
   - component: {fileID: 3801467584986534331}
+  - component: {fileID: 597870365073943293}
   - component: {fileID: 3801467584986534276}
+  - component: {fileID: 2369482278927924205}
   m_Layer: 0
   m_Name: Tree (1)
   m_TagString: Untagged
@@ -85,6 +87,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &597870365073943293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801467584986534277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28013b2b3a3bdb54db54d71d19014564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transparencyAmount: 0.8
+  fadeTime: 0.4
 --- !u!70 &3801467584986534276
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -101,3 +117,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0.044873238, y: 0.08595711}
   m_Size: {x: 0.65858793, y: 0.6585883}
   m_Direction: 0
+--- !u!58 &2369482278927924205
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801467584986534277}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.002506733, y: 1.221587}
+  serializedVersion: 2
+  m_Radius: 0.83295035
