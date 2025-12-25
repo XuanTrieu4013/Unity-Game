@@ -1522,7 +1522,7 @@ MonoBehaviour:
   dashForce: 10
   dashDuration: 0.2
   dashCooldown: 0.5
-  myTrailRender: {fileID: 0}
+  myTrailRender: {fileID: 1629678076}
 --- !u!212 &566694798
 SpriteRenderer:
   m_ObjectHideFlags: 0
