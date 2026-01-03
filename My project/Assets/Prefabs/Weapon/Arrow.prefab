@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2535336490750166568}
   - component: {fileID: 1364948111214685385}
   - component: {fileID: 6216843742238641890}
+  - component: {fileID: 879289900358012114}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -259,3 +260,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 30
   particleOnHitPrefabVFX: {fileID: 1293223729845314714, guid: ff3e26845fbb87b4497981dd54e49056, type: 3}
+--- !u!114 &879289900358012114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6163843394436517313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc55c96a65e8034db6366a0641bff36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
