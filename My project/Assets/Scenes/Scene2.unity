@@ -877,11 +877,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -5.2731543, y: 14.431622}
-      - {x: -5.2490144, y: -2.096523}
-      - {x: 20.174969, y: -2.1960454}
-      - {x: 20.174011, y: 5.5552487}
-      - {x: 20.172966, y: 13.99318}
+    - - {x: -7.1051073, y: 14.720879}
+      - {x: -6.8399196, y: -1.4698036}
+      - {x: 20.174965, y: -1.7621608}
+      - {x: 20.511475, y: 5.603458}
+      - {x: 20.462223, y: 14.378856}
 --- !u!1 &433246018
 GameObject:
   m_ObjectHideFlags: 0
@@ -5879,7 +5879,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7948,7 +7948,7 @@ MonoBehaviour:
   m_Follow: {fileID: 566694799}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 6
+    OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
