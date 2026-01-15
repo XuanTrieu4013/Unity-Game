@@ -1,51 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] int MaxHealth;
-    int currentHealth;
+  [SerializeField] private int maxHealth = 3;
+  [SerializeField] private float knockBackThrustAmount = 10f;
+  [SerializeField] private float damageRecoveryTime = 1f;
 
-    public HealthBar healthBar;
+  private int currentHealth;
+  private bool canTakeDamage = true;
+  private Knockback knockback;
+  private Flash flash;
 
-    public UnityEvent OnDeath;
-
-    private void OnEnable()
+    private void Awake()
     {
-        OnDeath.AddListener(Death); // sửa chính tả
+        flash = GetComponent<Flash>();
+        knockback = GetComponent<Knockback>();
     }
 
     private void Start()
     {
-        currentHealth = MaxHealth;
-        healthBar.UpdateBar(currentHealth, MaxHealth);
+        currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int Damage) 
+    private void OnCollisionStay2D(Collision2D other)
     {
-        currentHealth -= Damage;
+        EnemyAI enemy = other.gameObject.GetComponent<EnemyAI>();
 
-        if (currentHealth <= 0) // sửa điều kiện
+        if(enemy && canTakeDamage)
         {
-            currentHealth = 0;
-            OnDeath.Invoke();
+            TakeDamage(1);
+            knockback.GetKnockedBack(other.gameObject.transform, knockBackThrustAmount);
+            StartCoroutine(flash.FlashRoutine());
         }
-
-        healthBar.UpdateBar(currentHealth, MaxHealth);
+    }
+    private void TakeDamage(int damageAmount)
+    {
+        canTakeDamage = false;
+        currentHealth -= damageAmount;
+        StartCoroutine(DamageRecoveryRoutine());
     }
 
-    public void Death()
+    private IEnumerator DamageRecoveryRoutine()
     {
-        Destroy(gameObject); // sửa chính tả
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(20);
-        }
+        yield return new WaitForSeconds(damageRecoveryTime);
+        canTakeDamage = true;
     }
 }

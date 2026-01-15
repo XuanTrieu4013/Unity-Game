@@ -1469,7 +1469,9 @@ GameObject:
   - component: {fileID: 566694796}
   - component: {fileID: 566694800}
   - component: {fileID: 566694801}
+  - component: {fileID: 566694805}
   - component: {fileID: 566694802}
+  - component: {fileID: 566694804}
   - component: {fileID: 566694803}
   m_Layer: 0
   m_Name: Player
@@ -1642,26 +1644,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 566694795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1deaa9de288c45e49924c403272576f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 957a29225199f8e4387118cb92b7928a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  healthBar: {fileID: 0}
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 566694803}
-        m_TargetAssemblyTypeName: PlayerHealth, Assembly-CSharp
-        m_MethodName: Death
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  knockBackTime: 0.2
+--- !u!114 &566694804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566694795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786968e78e5419d4f9ab5315404eec23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteFlashMat: {fileID: 2100000, guid: 48eea1947d1310a4a90e081dcf7f8cda, type: 2}
+  restoreDefaultMatTime: 0.2
+--- !u!114 &566694805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566694795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83e89efe6b67c746a04c8696870098a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  knockBackThrustAmount: 10
+  damageRecoveryTime: 1
 --- !u!1 &597422982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5288334999286201591, guid: f8a1bd07c91f82344b173d3c2fbf5d80, type: 3}
