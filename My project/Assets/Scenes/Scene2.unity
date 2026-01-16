@@ -589,6 +589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1146935923446255924, guid: f20bbb3d8326daf4a8a89355e4a2aca0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20bbb3d8326daf4a8a89355e4a2aca0, type: 3}
 --- !u!1001 &369139635
@@ -16907,6 +16911,18 @@ PrefabInstance:
     - target: {fileID: 1146935923446255924, guid: f20bbb3d8326daf4a8a89355e4a2aca0, type: 3}
       propertyPath: m_Name
       value: Ghost
+      objectReference: {fileID: 0}
+    - target: {fileID: 1146935923446255924, guid: f20bbb3d8326daf4a8a89355e4a2aca0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637709559570819547, guid: f20bbb3d8326daf4a8a89355e4a2aca0, type: 3}
+      propertyPath: angleSpread
+      value: 151
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637709559570819547, guid: f20bbb3d8326daf4a8a89355e4a2aca0, type: 3}
+      propertyPath: projectilesPerBurst
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20bbb3d8326daf4a8a89355e4a2aca0, type: 3}
