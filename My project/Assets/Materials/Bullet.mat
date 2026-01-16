@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Magic
+  m_Name: Bullet
   m_Shader: {fileID: -6465566751694194690, guid: c9a1e217fa45bb549bb01ee85a8d4fc7, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -39,5 +39,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Color: {r: 0, g: 25.6, b: 95.87451, a: 0}
+    - _Color: {r: 8.216376, g: 30.297564, b: 41.298107, a: 0}
   m_BuildTextureStacks: []
