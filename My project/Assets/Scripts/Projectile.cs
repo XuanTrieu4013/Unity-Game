@@ -36,17 +36,17 @@ public class Projectile : MonoBehaviour
 
         if(!other.isTrigger && (enemyHealth || indestructible || player))
         {
-            if(player && isEnmyProjectile)
+            if((player && isEnmyProjectile) || (enemyHealth && !isEnmyProjectile))
             {
-                player.TakeDamage(1, transform);
+                player?.TakeDamage(1, transform);
+                Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }else if (!other.isTrigger && indestructible)
+            {
+                Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
+                Destroy(gameObject);
             }
-        }
-
-        
-        {
-            Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
-            Destroy(gameObject);
-        }   
+        }  
     }
 
     private void DetectFireDistance()
