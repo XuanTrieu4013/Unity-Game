@@ -42,6 +42,7 @@ public class EnemyHealth : MonoBehaviour
         if(currenHealth <= 0)
         {
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+            GetComponent<PickupSpawner>().DropItem();
             Destroy(gameObject);
         }
     }
