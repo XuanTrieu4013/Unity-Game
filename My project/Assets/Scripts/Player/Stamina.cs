@@ -5,66 +5,60 @@ using UnityEngine.UI;
 
 public class Stamina : Singleton<Stamina>
 {
-    public int CurrentStamina {get; private set;}
-    
+    public int CurrentStamina { get; private set; }
 
-    [SerializeField] private Sprite fullStaminaImage, emptyStanimaImage;
-    [SerializeField] private int timeBetweenStanimaRefresh = 3;
+    [SerializeField] private Sprite fullStaminaImage, emptyStaminaImage;
+    [SerializeField] private int timeBetweenStaminaRefresh = 3;
 
-    private Transform stanimaContainer;
-    private int startingStanima = 3;
-    private int maxStanima;
+    private Transform staminaContainer;
+    private int startingStamina = 3;
+    private int maxStamina;
     const string STAMINA_CONTAINER_TEXT = "Stamina Container";
 
-    protected override void Awake()
-    {
+    protected override void Awake() {
         base.Awake();
 
-        maxStanima = startingStanima;
-        CurrentStamina = startingStanima;
+        maxStamina = startingStamina;
+        CurrentStamina = startingStamina;
     }
 
-    private void Start()
-    {
-        stanimaContainer = GameObject.Find(STAMINA_CONTAINER_TEXT).transform;
+    private void Start() {
+        staminaContainer = GameObject.Find(STAMINA_CONTAINER_TEXT).transform;
     }
 
-    public void UseStamina()
-    {
-        CurrentStamina -- ;
+    public void UseStamina() {
+        CurrentStamina--;
         UpdateStaminaImages();
     }
 
-    public void RefreshStamina()
-    {
-        if(CurrentStamina < maxStanima)
-        {
+    public void RefreshStamina() {
+        if (CurrentStamina < maxStamina) {
             CurrentStamina++;
         }
         UpdateStaminaImages();
     }
 
-    private IEnumerator RefreshStaminaRoutine()
-    {
+    private IEnumerator RefreshStaminaRoutine() {
         while (true)
         {
-            yield return new WaitForSeconds(timeBetweenStanimaRefresh);
+            yield return new WaitForSeconds(timeBetweenStaminaRefresh);
             RefreshStamina();
         }
-        
     }
-    private void UpdateStaminaImages()
-    {
-        for(int i = 0; i <maxStanima; i++)
+
+    private void UpdateStaminaImages() {
+        for (int i = 0; i < maxStamina; i++)
         {
-            if(i <= CurrentStamina - 1)
-            {
-                stanimaContainer.GetChild(i).GetComponent<Image>().sprite = fullStaminaImage;
+            if (i <= CurrentStamina - 1) {
+                staminaContainer.GetChild(i).GetComponent<Image>().sprite = fullStaminaImage;
+            } else {
+                staminaContainer.GetChild(i).GetComponent<Image>().sprite = emptyStaminaImage;
             }
-            else
-            {
-                stanimaContainer.GetChild(i).GetComponent<Image>().sprite = emptyStanimaImage;
-            }
+        }
+
+        if (CurrentStamina < maxStamina) {
+            StopAllCoroutines();
+            StartCoroutine(RefreshStaminaRoutine());
         }
     }
 }

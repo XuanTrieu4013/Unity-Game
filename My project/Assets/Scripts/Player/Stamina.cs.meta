@@ -3,7 +3,9 @@ guid: 9f88146ba415edc46a412354f4fd2c9f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fullStaminaImage: {fileID: 21300000, guid: 28557cb89290e084fa58668f20a6ea4c, type: 3}
+  - emptyStaminaImage: {fileID: 21300000, guid: 2c1b20f61e8544749bdec29c7be9d3de, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
