@@ -75,9 +75,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
         if (currentHealth <= 0 && !isDead)
         {
             isDead = true;
-            // Xóa vũ khí khi chết
-            if (ActiveWeapon.Instance != null)
-                Destroy(ActiveWeapon.Instance.gameObject);
+            
 
             currentHealth = 0;
             GetComponent<Animator>().SetTrigger(DEATH_HASH);
@@ -92,19 +90,27 @@ public class PlayerHealth : Singleton<PlayerHealth>
     }
 
     public void RestartGame()
-    {
-        Time.timeScale = 1f; // bật lại thời gian
+{
+    ResetHealth();
+    Time.timeScale = 1f;
+    if (deathPanel != null)
+        deathPanel.SetActive(false);
 
-        // Reset nhân vật ngay khi nhấn Restart
-        ResetHealth();
+    isDead = false;
+    
+    StartCoroutine(RestartRoutine());
+}
+private IEnumerator RestartRoutine()
+{
+    SceneManagement.Instance.ResetTransition();
 
-        // Ẩn panel chết
-        if (deathPanel != null)
-            deathPanel.SetActive(false);
+    UIFade.Instance.FadeToBlack();
 
-        // Load lại scene mong muốn
-        SceneManager.LoadScene(TOWN_TEXT);
-    }
+    yield return new WaitForSecondsRealtime(1f);
+
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+}
+
 
     public void ResetHealth()
     {
@@ -120,8 +126,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
             anim.Update(0f);
         }
 
-        // Reset lại vũ khí nếu đã bị hủy
-        if (ActiveWeapon.Instance == null && defaultWeaponPrefab != null)
+        
         {
             Instantiate(defaultWeaponPrefab, transform.position, Quaternion.identity);
         }
