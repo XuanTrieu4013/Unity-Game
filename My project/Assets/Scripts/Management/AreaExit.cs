@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,26 +10,28 @@ public class AreaExit : MonoBehaviour
     private float waitToLoadTime = 1f;
 
     private void OnTriggerEnter2D(Collider2D other)
-{
-    if (other.gameObject.GetComponent<PlayerController>())
     {
-        // Kiểm tra đã giết hết quái chưa
-        if (!EnemyManager.Instance.AllEnemiesDead())
+        if (other.GetComponent<PlayerController>())
         {
-            Debug.Log("Chưa giết hết quái!");
-            return;
+            if (!EnemyManager.Instance.AllEnemiesDead())
+            {
+                WarningUI.Instance.ShowWarning();
+                return;
+            }
+
+            SceneManagement.Instance.SetTransitionName(sceneTransitionName);
+            UIFade.Instance.FadeToBlack();
+            StartCoroutine(LoadSceneRoutine());
         }
-
-        SceneManagement.Instance.SetTransitionName(sceneTransitionName);
-        UIFade.Instance.FadeToBlack();
-        StartCoroutine(LoadSceneRoutine());
     }
-}
 
-    private IEnumerator LoadSceneRoutine() {
-        while (waitToLoadTime >= 0) 
+    private IEnumerator LoadSceneRoutine()
+    {
+        float timer = waitToLoadTime;
+
+        while (timer > 0)
         {
-            waitToLoadTime -= Time.deltaTime;
+            timer -= Time.deltaTime;
             yield return null;
         }
 
