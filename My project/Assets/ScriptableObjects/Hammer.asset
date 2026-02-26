@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813ab29ec6b6d5a42b8512ce53171919, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 5341192421551366047, guid: 1a88be701ac7e214486e30cbe75fe384, type: 3}
-  weaponCooldown: 0.5
-  weaponDamage: 6
+  weaponPrefab: {fileID: 8385996326511170604, guid: b4ad935389576c548b19a87504f83f3c, type: 3}
+  weaponCooldown: 1.5
+  weaponDamage: 10
   weaponRange: 0.5
