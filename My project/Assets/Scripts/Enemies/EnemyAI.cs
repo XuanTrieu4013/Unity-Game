@@ -63,10 +63,12 @@ public class EnemyAI : MonoBehaviour
 
         enemyPathfinding.MoveTo(roamPosition);
 
-        if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position)< attackRange)
-        {
-            state = State.Attacking;
-        }
+        float distanceToPlayer = Vector2.Distance(transform.position, PlayerController.Instance.transform.position);
+
+if (distanceToPlayer < attackRange)
+{
+    state = State.Attacking;
+}
 
         if(timeRoaming > roamChangeDirFloat)
         {
@@ -75,27 +77,38 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void Attacking()
-    {
-        if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position)>attackRange)
-        
-        {
-            state = State.Roaming;
-        }if(attackRange != 0 && canAttack)
-        {
-            canAttack = false;
-            (enemyType as IEnemy).Attack();
+{
+    Transform player = PlayerController.Instance.transform;
+    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-            if (stopMovingWhileAttacking)
-            {
-                enemyPathfinding.StopMoving();
-            }
-            else
-            {
-                enemyPathfinding.MoveTo(roamPosition);
-            }
-            StartCoroutine(AttackCooldownRoutine());
-        }  
+    if (distanceToPlayer > attackRange)
+    {
+        state = State.Roaming;
+        return;
     }
+
+    // Luôn di chuyển tới player
+    enemyPathfinding.MoveTo(player.position - transform.position);
+
+    // Flip sprite theo player
+    if (player.position.x < transform.position.x)
+        spriteRenderer.flipX = true;
+    else
+        spriteRenderer.flipX = false;
+
+    if (canAttack)
+    {
+        canAttack = false;
+        (enemyType as IEnemy).Attack();
+
+        if (stopMovingWhileAttacking)
+        {
+            enemyPathfinding.StopMoving();
+        }
+
+        StartCoroutine(AttackCooldownRoutine());
+    }
+}
 
     private IEnumerator AttackCooldownRoutine()
     {

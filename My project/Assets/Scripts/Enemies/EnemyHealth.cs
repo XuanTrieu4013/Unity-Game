@@ -38,12 +38,18 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void DetectDeath()
+{
+    if (currenHealth <= 0)
     {
-        if(currenHealth <= 0)
+        // Báo cho EnemyManager
+        if (EnemyManager.Instance != null)
         {
-            Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
-            GetComponent<PickupSpawner>().DropItem();
-            Destroy(gameObject);
+            EnemyManager.Instance.EnemyDied();
         }
+
+        Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+        GetComponent<PickupSpawner>().DropItem();
+        Destroy(gameObject);
     }
+}
 }

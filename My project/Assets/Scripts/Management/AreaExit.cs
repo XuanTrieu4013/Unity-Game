@@ -10,13 +10,22 @@ public class AreaExit : MonoBehaviour
 
     private float waitToLoadTime = 1f;
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.GetComponent<PlayerController>()) {
-            SceneManagement.Instance.SetTransitionName(sceneTransitionName);
-            UIFade.Instance.FadeToBlack();
-            StartCoroutine(LoadSceneRoutine());
+    private void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.gameObject.GetComponent<PlayerController>())
+    {
+        // Kiểm tra đã giết hết quái chưa
+        if (!EnemyManager.Instance.AllEnemiesDead())
+        {
+            Debug.Log("Chưa giết hết quái!");
+            return;
         }
+
+        SceneManagement.Instance.SetTransitionName(sceneTransitionName);
+        UIFade.Instance.FadeToBlack();
+        StartCoroutine(LoadSceneRoutine());
     }
+}
 
     private IEnumerator LoadSceneRoutine() {
         while (waitToLoadTime >= 0) 
