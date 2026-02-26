@@ -6,6 +6,7 @@ using UnityEngine;public class Hammer : MonoBehaviour, IWeapon
     [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private float hammerAttackCD = .5f;
     [SerializeField] private WeaponInfo weaponInfo;
+    
 
     private Transform weaponCollider;
     private Animator myAnimator;
