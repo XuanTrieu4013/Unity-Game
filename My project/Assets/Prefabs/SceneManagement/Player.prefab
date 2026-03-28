@@ -162,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: -75224854, guid: 478a100d121726e43b8030f7be703933, type: 3}
+  m_Sprite: {fileID: 2075680955, guid: 3cf119cc788961a4d9aeef72ce9a6326, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -262,6 +262,8 @@ MonoBehaviour:
   maxHealth: 3
   knockBackThrustAmount: 10
   damageRecoveryTime: 1
+  deathPanel: {fileID: 0}
+  defaultWeaponPrefab: {fileID: 0}
 --- !u!210 &7356360373105869468
 SortingGroup:
   m_ObjectHideFlags: 0
