@@ -21,7 +21,7 @@ public class PickupSpawner : MonoBehaviour
         }
         if(randomNum == 3)
         {
-            int ramdomAmountOfGold = Random.Range(1, 9);
+            int ramdomAmountOfGold = Random.Range(4, 9);
 
             for(int i = 0; i < ramdomAmountOfGold; i++)
             {
