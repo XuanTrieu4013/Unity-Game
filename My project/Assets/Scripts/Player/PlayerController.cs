@@ -34,7 +34,7 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void Start() {
-        playerControls.Combat.Dash.performed += _ => Dash();
+        playerControls.Combat.Dash.performed += DashCallback;
 
         startingMoveSpeed = moveSpeed;
 
@@ -46,7 +46,15 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void OnDisable() {
-        playerControls.Disable();
+        if (playerControls != null) {
+            playerControls.Combat.Dash.performed -= DashCallback;
+            playerControls.Disable();
+        }
+    }
+
+    private void DashCallback(UnityEngine.InputSystem.InputAction.CallbackContext ctx) {
+        if (this == null) return;
+        Dash();
     }
 
     private void Update() {
@@ -63,6 +71,10 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void PlayerInput() {
+        if (PauseMenu.GameIsPaused) {
+            movement = Vector2.zero;
+            return;
+        }
         movement = playerControls.Movement.Move.ReadValue<Vector2>();
 
         myAnimator.SetFloat("moveX", movement.x);
@@ -76,6 +88,7 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void AdjustPlayerFacingDirection() {
+        if (PauseMenu.GameIsPaused) { return; }
         Vector3 mousePos = Input.mousePosition;
         Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
 
@@ -89,6 +102,7 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void Dash() {
+        if (PauseMenu.GameIsPaused) { return; }
         if (!isDashing && Stamina.Instance.CurrentStamina > 0) {
             Stamina.Instance.UseStamina();
             isDashing = true;

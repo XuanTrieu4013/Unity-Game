@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class DefaultSpawnPoint : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
-        SceneManagement.Instance.SetDefaultSpawn(transform.position);
+        if (SceneManagement.Instance != null)
+        {
+            SceneManagement.Instance.SetDefaultSpawn(transform.position);
+        }
     }
 }

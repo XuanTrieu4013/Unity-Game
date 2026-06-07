@@ -7,6 +7,6 @@ public class BackMain : MonoBehaviour
 {
     public void MainMenu()
     {
-        SceneManager.LoadScene("PickCharacter");
+        SceneManager.LoadScene("Menu");
     }
 }
