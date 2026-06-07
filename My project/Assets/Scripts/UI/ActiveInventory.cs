@@ -15,11 +15,23 @@ public class ActiveInventory : Singleton<ActiveInventory>
     }
 
     private void Start() {
-        playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
+        playerControls.Inventory.Keyboard.performed += ToggleActiveSlotCallback;
     }
 
     private void OnEnable() {
         playerControls.Enable();
+    }
+
+    private void OnDisable() {
+        if (playerControls != null) {
+            playerControls.Inventory.Keyboard.performed -= ToggleActiveSlotCallback;
+            playerControls.Disable();
+        }
+    }
+
+    private void ToggleActiveSlotCallback(UnityEngine.InputSystem.InputAction.CallbackContext ctx) {
+        if (this == null) return;
+        ToggleActiveSlot((int)ctx.ReadValue<float>());
     }
 
     public void EquipStartingWeapon() {
@@ -27,6 +39,7 @@ public class ActiveInventory : Singleton<ActiveInventory>
     }
 
     private void ToggleActiveSlot(int numValue) {
+        if (PauseMenu.GameIsPaused) return;
         ToggleActiveHighlight(numValue - 1);
     }
 
