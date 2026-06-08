@@ -15,12 +15,6 @@ public class AreaEntrance : MonoBehaviour
                 SceneManagement.Instance.ResetTransition();
             }
         }
-        else
-        {
-            
-            PlayerController.Instance.transform.position =
-                SceneManagement.Instance.GetSpawnPosition();
-        }
 
         CameraController.Instance.SetPlayerCameraFollow();
         UIFade.Instance.FadeToClear();

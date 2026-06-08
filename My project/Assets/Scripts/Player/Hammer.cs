@@ -24,6 +24,7 @@ using UnityEngine;public class Hammer : MonoBehaviour, IWeapon
     }
 
     private void Update() {
+        if (PauseMenu.GameIsPaused) return;
         MouseFollowWithOffset();
     }
 

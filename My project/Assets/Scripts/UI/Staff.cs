@@ -16,6 +16,7 @@ public class Staff : MonoBehaviour, IWeapon
         myAnimator = GetComponent<Animator>();
     }
     private void Update() {
+        if (PauseMenu.GameIsPaused) return;
         MouseFollowWithOffset();
     }
 

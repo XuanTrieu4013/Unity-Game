@@ -5,6 +5,7 @@ using UnityEngine;
 public class MouseFollow : MonoBehaviour
 {
     private void Update() {
+        if (PauseMenu.GameIsPaused) return;
         FaceMouse();
     }
 
