@@ -127,6 +127,13 @@ public class DamageSource : MonoBehaviour
     private void TriggerOverloadCombo(Vector3 position, int baseDamage)
     {
         float explosionRadius = 3f;
+
+        // Tạo hiệu ứng vòng tròn lan tỏa hiển thị phạm vi Overload
+        GameObject ringGo = new GameObject("OverloadRingEffect");
+        ringGo.transform.position = position;
+        OverloadRingEffect effect = ringGo.AddComponent<OverloadRingEffect>();
+        effect.Setup(explosionRadius, new Color(0.3f, 0.7f, 1f, 1f), 0.4f);
+
         int overloadDamage = Mathf.RoundToInt(baseDamage * 1.5f);
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, explosionRadius);
 
@@ -187,6 +194,74 @@ public class DamageSource : MonoBehaviour
             {
                 rightDs.SetWeaponInfo(weaponInfo, prefabToUse);
             }
+        }
+    }
+}
+
+public class OverloadRingEffect : MonoBehaviour
+{
+    private LineRenderer lineRenderer;
+    private float maxRadius;
+    private float duration;
+    private Color baseColor;
+    private float timer;
+
+    public void Setup(float radius, Color color, float duration)
+    {
+        this.maxRadius = radius;
+        this.baseColor = color;
+        this.duration = duration;
+        this.timer = 0f;
+
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.loop = true;
+        lineRenderer.startWidth = 0.06f;
+        lineRenderer.endWidth = 0.06f;
+
+        // Áp dụng Shader để vẽ đường Line có màu sắc và độ trong suốt
+        Shader defaultShader = Shader.Find("Sprites/Default");
+        if (defaultShader != null)
+        {
+            lineRenderer.material = new Material(defaultShader);
+        }
+        else
+        {
+            lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+        }
+
+        lineRenderer.positionCount = 36;
+        lineRenderer.sortingOrder = 5;
+    }
+
+    private void Update()
+    {
+        if (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+
+            // Bán kính mở rộng dần
+            float currentRadius = Mathf.Lerp(0f, maxRadius, t);
+            
+            // Tính toán 36 điểm trên vòng tròn quanh vị trí tâm
+            int segments = 36;
+            Vector3[] points = new Vector3[segments];
+            for (int i = 0; i < segments; i++)
+            {
+                float angle = i * 2f * Mathf.PI / segments;
+                points[i] = transform.position + new Vector3(Mathf.Cos(angle) * currentRadius, Mathf.Sin(angle) * currentRadius, 0f);
+            }
+            lineRenderer.SetPositions(points);
+
+            // Mờ dần theo thời gian
+            Color curColor = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(baseColor.a, 0f, t));
+            lineRenderer.startColor = curColor;
+            lineRenderer.endColor = curColor;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

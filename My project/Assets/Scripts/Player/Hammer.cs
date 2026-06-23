@@ -67,6 +67,12 @@ using UnityEngine;public class Hammer : MonoBehaviour, IWeapon
 
                 if (enemy.currentDebuff == EnemyDebuffState.Electrified)
                 {
+                    // Tạo hiệu ứng vòng tròn lan tỏa hiển thị phạm vi Overload
+                    GameObject ringGo = new GameObject("OverloadRingEffect");
+                    ringGo.transform.position = enemy.transform.position;
+                    OverloadRingEffect effect = ringGo.AddComponent<OverloadRingEffect>();
+                    effect.Setup(3f, new Color(0.3f, 0.7f, 1f, 1f), 0.4f);
+
                     Collider2D[] nearby = Physics2D.OverlapCircleAll(enemy.transform.position, 3f);
                     foreach (Collider2D nCol in nearby)
                     {

@@ -127,6 +127,25 @@ public class EnemyHealth : MonoBehaviour
             tmp.outlineWidth = 0.2f;
             tmp.outlineColor = Color.black;
         }
+
+        StartCoroutine(PulseTextRoutine(tmp));
+    }
+
+    private IEnumerator PulseTextRoutine(TextMeshPro tmp)
+    {
+        Color baseColor = tmp.color;
+        Vector3 originalScale = tmp.transform.localScale;
+        while (tmp != null)
+        {
+            // Nhấp nháy nhẹ độ mờ (alpha)
+            float alpha = 0.5f + Mathf.PingPong(Time.time * 3f, 0.5f);
+            tmp.color = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
+            
+            // Nhấp nháy nhẹ kích thước (scale)
+            float scaleMultiplier = 1f + Mathf.Sin(Time.time * 6f) * 0.1f;
+            tmp.transform.localScale = originalScale * scaleMultiplier;
+            yield return null;
+        }
     }
 
     private void HideDebuffIndicator()
@@ -267,6 +286,7 @@ public class FloatingText : MonoBehaviour
         Vector3 startPos = transform.position;
         Vector3 targetPos = startPos + targetOffset;
         Color startColor = tmp.color;
+        Vector3 originalScale = transform.localScale;
 
         while (timer < duration)
         {
@@ -274,7 +294,13 @@ public class FloatingText : MonoBehaviour
             float t = timer / duration;
             
             transform.position = Vector3.Lerp(startPos, targetPos, t);
-            tmp.color = new Color(startColor.r, startColor.g, startColor.b, Mathf.Lerp(1f, 0f, t));
+            
+            // Nhấp nháy nhẹ cả kích thước (scale) và độ mờ (alpha)
+            float scaleMultiplier = 1f + Mathf.Sin(timer * 15f) * 0.12f;
+            transform.localScale = originalScale * scaleMultiplier;
+
+            float blinkAlpha = 0.7f + Mathf.PingPong(timer * 12f, 0.3f);
+            tmp.color = new Color(startColor.r, startColor.g, startColor.b, Mathf.Lerp(1f, 0f, t) * blinkAlpha);
             yield return null;
         }
         
