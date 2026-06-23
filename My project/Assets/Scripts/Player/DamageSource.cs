@@ -6,6 +6,7 @@ public class DamageSource : MonoBehaviour
 {
     private int damageAmount;
     private WeaponInfo weaponInfo;
+    private GameObject projectilePrefab;
 
     private void Start()
     {
@@ -16,10 +17,11 @@ public class DamageSource : MonoBehaviour
         }
     }
 
-    public void SetWeaponInfo(WeaponInfo info)
+    public void SetWeaponInfo(WeaponInfo info, GameObject projPrefab = null)
     {
         weaponInfo = info;
         damageAmount = info.weaponDamage;
+        projectilePrefab = projPrefab;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -68,6 +70,7 @@ public class DamageSource : MonoBehaviour
                 // Combo Mage -> Melee (Overload)
                 TriggerOverloadCombo(enemy.transform.position, info.weaponDamage);
                 enemy.ShowComboPopup("OVERLOAD!", new Color(0.3f, 0.7f, 1f));
+                enemy.FlashColorOnHit(new Color(0.3f, 0.7f, 1f), 0.15f);
                 enemy.ClearDebuff();
             }
             else if (enemy.currentDebuff == EnemyDebuffState.Marked)
@@ -80,6 +83,7 @@ public class DamageSource : MonoBehaviour
                     Stamina.Instance.RefreshStamina();
                 }
                 enemy.ShowComboPopup("CRITICAL!", new Color(1f, 0.9f, 0.2f));
+                enemy.FlashColorOnHit(new Color(1f, 0.9f, 0.2f), 0.15f);
                 enemy.ClearDebuff();
             }
             else
@@ -95,6 +99,7 @@ public class DamageSource : MonoBehaviour
                 // Combo Melee -> Ranged (Splitting Arrows)
                 TriggerSplittingArrowsCombo(enemy.transform.position, info);
                 enemy.ShowComboPopup("SPLIT!", new Color(0.4f, 1f, 0.4f));
+                enemy.FlashColorOnHit(new Color(0.4f, 1f, 0.4f), 0.15f);
                 enemy.ClearDebuff();
             }
             else
@@ -147,32 +152,40 @@ public class DamageSource : MonoBehaviour
 
     private void TriggerSplittingArrowsCombo(Vector3 position, WeaponInfo weaponInfo)
     {
-        MonoBehaviour activeWeapon = ActiveWeapon.Instance.CurrentActiveWeapon;
-        if (activeWeapon != null && activeWeapon is Bow bow)
+        GameObject prefabToUse = projectilePrefab;
+
+        // Fallback if not set
+        if (prefabToUse == null)
         {
-            Quaternion baseRotation = ActiveWeapon.Instance.transform.rotation;
+            MonoBehaviour activeWeapon = ActiveWeapon.Instance.CurrentActiveWeapon;
+            if (activeWeapon != null && activeWeapon is Bow bow)
+            {
+                prefabToUse = bow.ArrowPrefab;
+            }
+        }
+
+        if (prefabToUse != null)
+        {
+            Quaternion arrowRotation = transform.rotation;
             
             float angleOffset = 30f;
-            Quaternion leftRot = baseRotation * Quaternion.Euler(0, 0, angleOffset);
-            Quaternion rightRot = baseRotation * Quaternion.Euler(0, 0, -angleOffset);
+            Quaternion leftRot = arrowRotation * Quaternion.Euler(0, 0, angleOffset);
+            Quaternion rightRot = arrowRotation * Quaternion.Euler(0, 0, -angleOffset);
 
-            if (bow.ArrowPrefab != null)
+            GameObject leftArrow = Instantiate(prefabToUse, position, leftRot);
+            leftArrow.GetComponent<Projectile>().UpdateProjectileRange(weaponInfo.weaponRange);
+            DamageSource leftDs = leftArrow.GetComponent<DamageSource>();
+            if (leftDs != null)
             {
-                GameObject leftArrow = Instantiate(bow.ArrowPrefab, position, leftRot);
-                leftArrow.GetComponent<Projectile>().UpdateProjectileRange(weaponInfo.weaponRange);
-                DamageSource leftDs = leftArrow.GetComponent<DamageSource>();
-                if (leftDs != null)
-                {
-                    leftDs.SetWeaponInfo(weaponInfo);
-                }
-                
-                GameObject rightArrow = Instantiate(bow.ArrowPrefab, position, rightRot);
-                rightArrow.GetComponent<Projectile>().UpdateProjectileRange(weaponInfo.weaponRange);
-                DamageSource rightDs = rightArrow.GetComponent<DamageSource>();
-                if (rightDs != null)
-                {
-                    rightDs.SetWeaponInfo(weaponInfo);
-                }
+                leftDs.SetWeaponInfo(weaponInfo, prefabToUse);
+            }
+            
+            GameObject rightArrow = Instantiate(prefabToUse, position, rightRot);
+            rightArrow.GetComponent<Projectile>().UpdateProjectileRange(weaponInfo.weaponRange);
+            DamageSource rightDs = rightArrow.GetComponent<DamageSource>();
+            if (rightDs != null)
+            {
+                rightDs.SetWeaponInfo(weaponInfo, prefabToUse);
             }
         }
     }

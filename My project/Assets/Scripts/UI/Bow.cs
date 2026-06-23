@@ -26,7 +26,7 @@ public class Bow : MonoBehaviour, IWeapon
         DamageSource ds = newArrow.GetComponent<DamageSource>();
         if (ds != null)
         {
-            ds.SetWeaponInfo(weaponInfo);
+            ds.SetWeaponInfo(weaponInfo, arrowPrefab);
         }
     }
 
@@ -43,7 +43,7 @@ public class Bow : MonoBehaviour, IWeapon
             DamageSource ds = newArrow.GetComponent<DamageSource>();
             if (ds != null)
             {
-                ds.SetWeaponInfo(weaponInfo);
+                ds.SetWeaponInfo(weaponInfo, arrowPrefab);
             }
         }
     }

@@ -116,6 +116,17 @@ public class EnemyHealth : MonoBehaviour
         tmp.color = color;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.sortingOrder = 10;
+
+        // Auto-detect and apply pixel font if generated in Resources
+        TMP_FontAsset pixelFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/PressStart2P-Regular SDF");
+        if (pixelFont == null) pixelFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/Silkscreen-Regular SDF");
+        if (pixelFont == null) pixelFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/VT323-Regular SDF");
+        if (pixelFont != null)
+        {
+            tmp.font = pixelFont;
+            tmp.outlineWidth = 0.2f;
+            tmp.outlineColor = Color.black;
+        }
     }
 
     private void HideDebuffIndicator()
@@ -135,6 +146,39 @@ public class EnemyHealth : MonoBehaviour
     public void ShowComboPopup(string text, Color color)
     {
         CreateFloatingText(text, color, 1f, new Vector3(0, 0.5f, 0));
+    }
+
+    public void FlashColorOnHit(Color flashColor, float duration)
+    {
+        StartCoroutine(FlashColorRoutine(flashColor, duration));
+    }
+
+    private IEnumerator FlashColorRoutine(Color flashColor, float duration)
+    {
+        if (spriteRenderer != null)
+        {
+            Color prevColor = spriteRenderer.color;
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(duration);
+            if (spriteRenderer != null)
+            {
+                switch (currentDebuff)
+                {
+                    case EnemyDebuffState.Electrified:
+                        spriteRenderer.color = new Color(0.5f, 0.8f, 1f, 1f);
+                        break;
+                    case EnemyDebuffState.Marked:
+                        spriteRenderer.color = new Color(1f, 0.9f, 0.5f, 1f);
+                        break;
+                    case EnemyDebuffState.Vulnerable:
+                        spriteRenderer.color = new Color(1f, 0.5f, 0.5f, 1f);
+                        break;
+                    default:
+                        spriteRenderer.color = originalSpriteColor;
+                        break;
+                }
+            }
+        }
     }
 
     private GameObject CreateFloatingText(string text, Color color, float duration, Vector3 offset)
@@ -199,6 +243,17 @@ public class FloatingText : MonoBehaviour
         tmp.fontSize = 4f;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.sortingOrder = 11;
+
+        // Auto-detect and apply pixel font if generated in Resources
+        TMP_FontAsset pixelFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/PressStart2P-Regular SDF");
+        if (pixelFont == null) pixelFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/Silkscreen-Regular SDF");
+        if (pixelFont == null) pixelFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/VT323-Regular SDF");
+        if (pixelFont != null)
+        {
+            tmp.font = pixelFont;
+            tmp.outlineWidth = 0.25f;
+            tmp.outlineColor = Color.black;
+        }
         
         this.duration = duration;
         this.targetOffset = targetOffset;

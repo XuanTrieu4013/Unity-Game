@@ -25,7 +25,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public bool AllEnemiesDead()
     {
-        return enemyCount <= 0;
+        return enemyCount <= 0 || FindObjectsOfType<EnemyAI>().Length <= 0;
     }
 
     private void OnDestroy()

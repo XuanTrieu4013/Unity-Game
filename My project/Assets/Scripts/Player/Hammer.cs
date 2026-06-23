@@ -79,6 +79,7 @@ using UnityEngine;public class Hammer : MonoBehaviour, IWeapon
                         }
                     }
                     enemy.ShowComboPopup("OVERLOAD!", new Color(0.3f, 0.7f, 1f));
+                    enemy.FlashColorOnHit(new Color(0.3f, 0.7f, 1f), 0.15f);
                     enemy.ClearDebuff();
                 }
                 else if (enemy.currentDebuff == EnemyDebuffState.Marked)
@@ -89,12 +90,14 @@ using UnityEngine;public class Hammer : MonoBehaviour, IWeapon
                         Stamina.Instance.RefreshStamina();
                     }
                     enemy.ShowComboPopup("CRITICAL!", new Color(1f, 0.9f, 0.2f));
+                    enemy.FlashColorOnHit(new Color(1f, 0.9f, 0.2f), 0.15f);
                     enemy.ClearDebuff();
                 }
                 else
                 {
                     enemy.ApplyDebuff(EnemyDebuffState.Vulnerable, 3f);
                     enemy.ShowComboPopup("STUNNED!", new Color(1f, 0.5f, 0.2f));
+                    enemy.FlashColorOnHit(new Color(1f, 0.5f, 0.2f), 0.15f);
                 }
 
                 enemy.TakeDamage(finalDamage);
