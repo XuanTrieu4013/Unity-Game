@@ -37,9 +37,28 @@ public class EnemyAI : MonoBehaviour
         roamPosition = GetRoamingPosition();
     }
 
+    public bool IsStunned { get; private set; }
+
     private void Update()
     {
+        if (IsStunned) return;
         MovementStateControl();       
+    }
+
+    public void Stun(float duration)
+    {
+        StartCoroutine(StunRoutine(duration));
+    }
+
+    private IEnumerator StunRoutine(float duration)
+    {
+        IsStunned = true;
+        if (enemyPathfinding != null)
+        {
+            enemyPathfinding.StopMoving();
+        }
+        yield return new WaitForSeconds(duration);
+        IsStunned = false;
     }
 
     private void MovementStateControl()
@@ -61,14 +80,19 @@ public class EnemyAI : MonoBehaviour
     {
         timeRoaming += Time.deltaTime;
 
-        enemyPathfinding.MoveTo(roamPosition);
+        if (enemyPathfinding != null)
+        {
+            enemyPathfinding.MoveTo(roamPosition);
+        }
+
+        if (PlayerController.Instance == null) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, PlayerController.Instance.transform.position);
 
-if (distanceToPlayer < attackRange)
-{
-    state = State.Attacking;
-}
+        if (distanceToPlayer < attackRange)
+        {
+            state = State.Attacking;
+        }
 
         if(timeRoaming > roamChangeDirFloat)
         {
@@ -77,38 +101,56 @@ if (distanceToPlayer < attackRange)
     }
 
     private void Attacking()
-{
-    Transform player = PlayerController.Instance.transform;
-    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-    if (distanceToPlayer > attackRange)
     {
-        state = State.Roaming;
-        return;
-    }
-
-    // Luôn di chuyển tới player
-    enemyPathfinding.MoveTo(player.position - transform.position);
-
-    // Flip sprite theo player
-    if (player.position.x < transform.position.x)
-        spriteRenderer.flipX = true;
-    else
-        spriteRenderer.flipX = false;
-
-    if (canAttack)
-    {
-        canAttack = false;
-        (enemyType as IEnemy).Attack();
-
-        if (stopMovingWhileAttacking)
+        if (PlayerController.Instance == null)
         {
-            enemyPathfinding.StopMoving();
+            state = State.Roaming;
+            return;
         }
 
-        StartCoroutine(AttackCooldownRoutine());
+        Transform player = PlayerController.Instance.transform;
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (distanceToPlayer > attackRange)
+        {
+            state = State.Roaming;
+            return;
+        }
+
+        if (enemyPathfinding != null)
+        {
+            enemyPathfinding.MoveTo(player.position - transform.position);
+        }
+
+        if (spriteRenderer != null)
+        {
+            if (player.position.x < transform.position.x)
+                spriteRenderer.flipX = true;
+            else
+                spriteRenderer.flipX = false;
+        }
+
+        if (canAttack)
+        {
+            canAttack = false;
+
+            if (enemyType != null && enemyType is IEnemy enemy)
+            {
+                enemy.Attack();
+            }
+            else
+            {
+                Debug.LogWarning($"[{gameObject.name}] EnemyAI: enemyType is missing or does not implement IEnemy!");
+            }
+
+            if (stopMovingWhileAttacking && enemyPathfinding != null)
+            {
+                enemyPathfinding.StopMoving();
+            }
+
+            StartCoroutine(AttackCooldownRoutine());
+        }
     }
-}
 
     private IEnumerator AttackCooldownRoutine()
     {

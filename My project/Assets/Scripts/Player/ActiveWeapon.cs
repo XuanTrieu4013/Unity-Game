@@ -54,6 +54,21 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
 
     private void Update() {
         Attack();
+        HandleSpecialSkill();
+    }
+
+    private void HandleSpecialSkill() {
+        if (PauseMenu.GameIsPaused) return;
+
+        if (Input.GetMouseButtonDown(1)) {
+            if (CurrentActiveWeapon != null && CurrentActiveWeapon is IWeapon weapon) {
+                if (Stamina.Instance != null && Stamina.Instance.CurrentStamina > 0 && !isAttacking) {
+                    Stamina.Instance.UseStamina();
+                    AttackCooldown();
+                    weapon.UseSpecialSkill();
+                }
+            }
+        }
     }
 
     public void NewWeapon(MonoBehaviour newWeapon) {

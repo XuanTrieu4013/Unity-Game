@@ -12,6 +12,8 @@ public class Bow : MonoBehaviour, IWeapon
 
     private Animator myAnimator;
 
+    public GameObject ArrowPrefab => arrowPrefab;
+
     private void Awake()
     {
         myAnimator = GetComponent<Animator>();
@@ -21,6 +23,29 @@ public class Bow : MonoBehaviour, IWeapon
         myAnimator.SetTrigger(FIRE_HASH);
         GameObject newArrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, ActiveWeapon.Instance.transform.rotation);
         newArrow.GetComponent<Projectile>().UpdateProjectileRange(weaponInfo.weaponRange);
+        DamageSource ds = newArrow.GetComponent<DamageSource>();
+        if (ds != null)
+        {
+            ds.SetWeaponInfo(weaponInfo);
+        }
+    }
+
+    public void UseSpecialSkill()
+    {
+        myAnimator.SetTrigger(FIRE_HASH);
+        Quaternion baseRotation = ActiveWeapon.Instance.transform.rotation;
+        float[] angles = { 0, 15, -15 };
+        foreach (float angle in angles)
+        {
+            Quaternion rot = baseRotation * Quaternion.Euler(0, 0, angle);
+            GameObject newArrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, rot);
+            newArrow.GetComponent<Projectile>().UpdateProjectileRange(weaponInfo.weaponRange);
+            DamageSource ds = newArrow.GetComponent<DamageSource>();
+            if (ds != null)
+            {
+                ds.SetWeaponInfo(weaponInfo);
+            }
+        }
     }
 
     public WeaponInfo GetWeaponInfo()
